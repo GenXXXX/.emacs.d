@@ -81,8 +81,8 @@
 (put 'upcase-region 'disabled nil)
 
 ;; path for macbook
-(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"))
-    (setq exec-path (append exec-path '("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin")))
+(setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin/"))
+    (setq exec-path (append exec-path '("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin/")))
 
 
 (custom-set-faces
@@ -172,7 +172,7 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; zone-mode for screen saver
 (require 'zone)
-(zone-when-idle 120)
+(zone-when-idle 240)
 
 ;; org-mode
 (setq org-agenda-files (list "~/org/work.org"))
@@ -181,3 +181,5 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key "\C-ca" 'org-agenda)
 (global-set-key "\C-cc" 'org-capture)
 (global-set-key "\C-cb" 'org-switchb)
+; closing items time
+(setq org-log-done 'time)
