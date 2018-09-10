@@ -15,9 +15,12 @@
  ;; If there is more than one, they won't work right.
  '(initial-frame-alist (quote ((fullscreen . maximized))))
  '(markdown-command "/usr/local/bin/pandoc")
+ '(org-agenda-files
+   (quote
+    ("~/org/work.org" "~/org/journal.org" "~/org/gtd.org")) t)
  '(package-selected-packages
    (quote
-    (spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
+    (exec-path-from-shell spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
 
 ;; set line number
 (global-linum-mode 1) ; always show line numbers
@@ -82,7 +85,7 @@
 
 ;; path for macbook
 (setenv "PATH" (concat (getenv "PATH") ":/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin/"))
-    (setq exec-path (append exec-path '("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin/")))
+(setq exec-path (append exec-path '("/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Library/TeX/texbin/")))
 
 
 (custom-set-faces
@@ -172,10 +175,10 @@ Repeated invocations toggle between the two most recently open buffers."
 
 ;; zone-mode for screen saver
 (require 'zone)
-(zone-when-idle 240)
+(zone-when-idle 600)
 
 ;; org-mode
-(setq org-agenda-files (list "~/org/work.org"))
+(setq org-agenda-files (list "~/org/work.org" "~/org/gtd.org" "~/org/journal.org"))
 ;; The following lines are always needed.  Choose your own keys.
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
@@ -183,3 +186,31 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key "\C-cb" 'org-switchb)
 ; closing items time
 (setq org-log-done 'time)
+; capture notes
+;(setq org-default-notes-file (concat org-directory "~/org/notes.org"))
+(define-key global-map "\C-cc" 'org-capture)
+; set capture template
+(setq org-capture-templates
+      '(("t" "Todo" entry (file+headline "~/org/gtd.org" "Tasks")
+	 "* TODO %?\n %i\n %a")
+	("j" "Journal" entry (file+datetree "~/org/journal.org")
+	 "* %?\nEntered on %U\n %i\n %a")))
+; multi-state workflow
+(setq org-todo-keywords
+      '((sequence "TODO" "|" "DONE" "CANCELED")))
+
+;; Flyspell for spell checking
+; brew install aspell
+(setq ispell-program-name "/usr/local/bin/aspell")
+(dolist (hook '(text-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode 1))))
+    (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
+      (add-hook hook (lambda () (flyspell-mode -1))))
+; enable flyspell for comments in source code
+(add-hook 'scala-mode-hook
+          (lambda ()
+            (flyspell-prog-mode)
+            ; ...
+          ))
+; performance
+(setq flyspell-issue-message-flag nil)
