@@ -1,8 +1,10 @@
 ; set font size
 (set-face-attribute 'default nil :height 170)
 
-;; close the default opening tab
-(setq inhibit-startup-message t)
+; show org-mode agendas when emacs opens
+(setq inhibit-splash-screen t)
+(org-agenda-list)
+(delete-other-windows)
 
 ;; highlight current line
 (global-hl-line-mode +1)
@@ -17,7 +19,7 @@
  '(markdown-command "/usr/local/bin/pandoc")
  '(org-agenda-files
    (quote
-    ("~/org/work.org" "~/org/journal.org" "~/org/gtd.org")) t)
+    ("~/org/work.org" "~/org/journal.org" "~/org/gtd.org")))
  '(package-selected-packages
    (quote
     (exec-path-from-shell spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
