@@ -199,7 +199,7 @@ Repeated invocations toggle between the two most recently open buffers."
 	 "* %?\nEntered on %U\n %i\n %a")))
 ; multi-state workflow
 (setq org-todo-keywords
-      '((sequence "TODO" "|" "DONE" "CANCELED")))
+      '((sequence "TODO" "IN PROGRESS" "|" "DONE" "CANCELED")))
 
 ;; Flyspell for spell checking
 ; brew install aspell
@@ -216,3 +216,14 @@ Repeated invocations toggle between the two most recently open buffers."
           ))
 ; performance
 (setq flyspell-issue-message-flag nil)
+
+;; set up tidal-cycles
+(require 'package)
+(add-to-list 'package-archives 
+    '("marmalade" .
+      "http://marmalade-repo.org/packages/"))
+(package-initialize)
+(setq load-path (cons "~/.emacs.d/lisp/" load-path))
+(require 'tidal)
+(setq tidal-interpreter "/usr/local/bin/ghci")
+; (setq tidal-interpreter "/usr/bin/ghci")
