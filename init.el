@@ -180,7 +180,7 @@ Repeated invocations toggle between the two most recently open buffers."
 (zone-when-idle 600)
 
 ;; org-mode
-(setq org-agenda-files (list "~/org/work.org" "~/org/gtd.org" "~/org/journal.org"))
+(setq org-agenda-files (list "~/org/work.org" "~/org/life.org" "~/org/gtd.org" "~/org/journal.org"))
 ;; The following lines are always needed.  Choose your own keys.
 (global-set-key "\C-cl" 'org-store-link)
 (global-set-key "\C-ca" 'org-agenda)
