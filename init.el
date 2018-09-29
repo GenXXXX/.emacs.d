@@ -22,7 +22,7 @@
     ("~/org/work.org" "~/org/journal.org" "~/org/gtd.org")))
  '(package-selected-packages
    (quote
-    (exec-path-from-shell spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
+    (org2web htmlize org-page exec-path-from-shell spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
 
 ;; set line number
 (global-linum-mode 1) ; always show line numbers
@@ -188,8 +188,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (global-set-key "\C-cb" 'org-switchb)
 ; closing items time
 (setq org-log-done 'time)
-; capture notes
-;(setq org-default-notes-file (concat org-directory "~/org/notes.org"))
 (define-key global-map "\C-cc" 'org-capture)
 ; set capture template
 (setq org-capture-templates
@@ -227,3 +225,6 @@ Repeated invocations toggle between the two most recently open buffers."
 (require 'tidal)
 (setq tidal-interpreter "/usr/local/bin/ghci")
 ; (setq tidal-interpreter "/usr/bin/ghci")
+
+;; Org-page for Github Pages based on Org-mode
+
