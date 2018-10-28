@@ -22,7 +22,7 @@
     ("~/org/work.org" "~/org/journal.org" "~/org/gtd.org")))
  '(package-selected-packages
    (quote
-    (org2web htmlize org-page exec-path-from-shell spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
+    (simple-httpd dash-functional mustache-mode mustache org2web htmlize org-page exec-path-from-shell spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
 
 ;; set line number
 (global-linum-mode 1) ; always show line numbers
@@ -52,7 +52,7 @@
                     (not (gnutls-available-p))))
        (proto (if no-ssl "http" "https")))
   ;; Comment/uncomment these two lines to enable/disable MELPA and MELPA Stable as desired
-  ;;(add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
+  (add-to-list 'package-archives (cons "melpa" (concat proto "://melpa.org/packages/")) t)
   (add-to-list 'package-archives (cons "melpa-stable" (concat proto "://stable.melpa.org/packages/")) t)
   (when (< emacs-major-version 24)
     ;; For important compatibility libraries like cl-lib
@@ -179,6 +179,23 @@ Repeated invocations toggle between the two most recently open buffers."
 (require 'zone)
 (zone-when-idle 600)
 
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; org-mode;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+;; org-page
+(add-to-list 'load-path "~/.emacs.d/lisp/org-page/")                    ;; only needed if you install org-page manually
+(require 'org-page)
+(setq op/repository-directory "~/Documents/Git/genxxxx.github.io/")   ;; the repository location
+(setq op/site-domain "https://genxxxx.github.io")         ;; your domain
+;;; the configuration below you should choose one, not both
+;(setq op/personal-disqus-shortname "your_disqus_shortname")    ;; your disqus commenting system
+(setq op/hashover-comments t)                                   ;; activate hashover self-hosted comment system
+; blog settings
+(setq op/site-main-title "Gen.X's Blog")
+(setq op/site-sub-title "======> No more knowledge can be extracted from my tellings")
+(setq op/repository-org-branch "source") ;; default is "source"
+(setq op/repository-html-branch "master")  ;; default is "master"
+(setq op/personal-github-link "https://github.com/GenXXXX")
+
 ;; org-mode
 (setq org-agenda-files (list "~/org/work/work.org" "~/org/life/life.org" "~/org/gtd.org" "~/org/journal.org" "~/org/life/book.org" "~/org/life/movie.org" "~/org/life/shop.org"))
 ;; The following lines are always needed.  Choose your own keys.
@@ -198,6 +215,8 @@ Repeated invocations toggle between the two most recently open buffers."
 ; multi-state workflow
 (setq org-todo-keywords
       '((sequence "TODO" "IN PROGRESS" "|" "DONE" "CANCELED")))
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; org-mode;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Flyspell for spell checking
 ; brew install aspell
@@ -225,6 +244,3 @@ Repeated invocations toggle between the two most recently open buffers."
 (require 'tidal)
 (setq tidal-interpreter "/usr/local/bin/ghci")
 ; (setq tidal-interpreter "/usr/bin/ghci")
-
-;; Org-page for Github Pages based on Org-mode
-
