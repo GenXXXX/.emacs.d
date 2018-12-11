@@ -22,7 +22,7 @@
     ("~/org/work.org" "~/org/journal.org" "~/org/gtd.org")))
  '(package-selected-packages
    (quote
-    (simple-httpd dash-functional mustache-mode mustache org2web htmlize org-page exec-path-from-shell spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
+    (epresent json-mode o-blog org-static-blog simple-httpd dash-functional mustache-mode mustache org2web htmlize org-page exec-path-from-shell spaceline-all-the-icons solaire-mode doom-themes lua-mode yaml-mode projectile neotree highlight-symbol ensime auto-complete auctex))))
 
 ;; set line number
 (global-linum-mode 1) ; always show line numbers
@@ -216,6 +216,21 @@ Repeated invocations toggle between the two most recently open buffers."
 (setq org-todo-keywords
       '((sequence "TODO" "IN PROGRESS" "|" "DONE" "CANCELED")))
 
+;; beamer presnetation set-up
+(eval-after-load "ox-latex"
+
+  ;; update the list of LaTeX classes and associated header (encoding, etc.)
+  ;; and structure
+  '(add-to-list 'org-latex-classes
+                `("beamer"
+                  ,(concat "\\documentclass[presentation]{beamer}\n"
+                           "[DEFAULT-PACKAGES]"
+                           "[PACKAGES]"
+                           "[EXTRA]\n")
+                  ("\\section{%s}" . "\\section*{%s}")
+                  ("\\subsection{%s}" . "\\subsection*{%s}")
+                  ("\\subsubsection{%s}" . "\\subsubsection*{%s}"))))
+
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;; org-mode;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 
 ;; Flyspell for spell checking
@@ -225,7 +240,7 @@ Repeated invocations toggle between the two most recently open buffers."
       (add-hook hook (lambda () (flyspell-mode 1))))
     (dolist (hook '(change-log-mode-hook log-edit-mode-hook))
       (add-hook hook (lambda () (flyspell-mode -1))))
-; enable flyspell for comments in source code
+; enable flyspell for comments in source codex
 (add-hook 'scala-mode-hook
           (lambda ()
             (flyspell-prog-mode)
